@@ -33,30 +33,13 @@ class Cell(Agent):
 
         # Get the neighbors and apply the rules on whether to be alive or dead
         # at the next tick.
-        
-
-    def advance(self):
-        """
-        Set the state to the new computed state -- computed in step().
-        """
-        self.state = self._nextState
         live_neighbors = []
         # live_neighbors = sum(neighbor.isAlive() for neighbor in self.neighbors())
 
         for neighbors in self.neighbors():
             if(self.y+1 == neighbors.y):
                 live_neighbors.append(neighbors.isAlive())
-
-
-        # Assume nextState is unchanged, unless changed below.
-        # self._nextState = self.state
-        # if self.isAlive():
-        #     if live_neighbors < 2 or live_neighbors > 3:
-        #         self._nextState = self.DEAD
-        # else:
-        #     if live_neighbors == 3:
-        #         self._nextState = self.ALIVE
-
+                
         self._nextState = self.state
         if self.isAlive():
             if live_neighbors == [0, 0, 0] or live_neighbors == [0, 1, 0] or live_neighbors == [1,0,1] or live_neighbors == [1,1,1]:
@@ -64,3 +47,9 @@ class Cell(Agent):
         else:
             if live_neighbors == [0,0,1] or live_neighbors == [0,1,1] or live_neighbors == [1,0,0] or live_neighbors == [1,1,0]:
                 self._nextState = self.ALIVE
+
+    def advance(self):
+        """
+        Set the state to the new computed state -- computed in step().
+        """
+        self.state = self._nextState
